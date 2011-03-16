@@ -13,10 +13,7 @@ namespace TextToSpeechPlugin
 
 		public int VoiceCount
 		{
-			get
-			{
-				return _voice.GetVoices().Count;
-			}
+			get { return _voice.GetVoices().Count; }
 		}
 
 		public void Speak(string text)

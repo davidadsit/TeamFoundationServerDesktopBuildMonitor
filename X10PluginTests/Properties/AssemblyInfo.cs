@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Tests")]
+[assembly: AssemblyTitle("X10PluginTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Tests")]
+[assembly: AssemblyProduct("X10PluginTests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("d2945980-1f8e-4c65-8d61-6bbb3eba15e6")]
+[assembly: Guid("7fc16f3a-2bcc-455e-bfac-21fdab9eca5a")]
 
 // Version information for an assembly consists of the following four values:
 //

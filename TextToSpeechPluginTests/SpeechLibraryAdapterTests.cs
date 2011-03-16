@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using TextToSpeechPlugin;
 
-namespace Tests
+namespace TextToSpeechPluginTests
 {
 	[TestFixture]
 	public class SpeechLibraryAdapterTests
@@ -16,6 +16,12 @@ namespace Tests
 		}
 
 		[Test]
+		public void GetVoices()
+		{
+			Console.Out.WriteLine("Found {0} voice(s).", _speechLibraryAdapter.VoiceCount);
+		}
+
+		[Test]
 		public void ImplementsISpeechLibrary()
 		{
 			Assert.IsInstanceOf(typeof (ISpeechLibrary), _speechLibraryAdapter);
@@ -25,12 +31,6 @@ namespace Tests
 		public void SpeaksHelloWorld()
 		{
 			_speechLibraryAdapter.Speak("Hello, World!");
-		}
-
-		[Test]
-		public void GetVoices()
-		{
-			Console.Out.WriteLine("Found {0} voice(s).", _speechLibraryAdapter.VoiceCount);
 		}
 	}
 }

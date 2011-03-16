@@ -14,7 +14,7 @@ namespace CCTfsWrapper
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new ListBuildsForm());
+			Application.Run(new BuildStatusForm());
 		}
 	}
 }

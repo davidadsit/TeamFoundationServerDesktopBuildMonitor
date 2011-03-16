@@ -1,14 +1,15 @@
+using System;
 using Moq;
 using NUnit.Framework;
 using TextToSpeechPlugin;
 
-namespace Tests
+namespace TextToSpeechPluginTests
 {
 	[TestFixture]
 	public class TextToSpeechNotifierTests
 	{
-		private TextToSpeechNotifier _textToSpeechNotifier;
 		private Mock<ISpeechLibrary> _speechLibraryMock;
+		private TextToSpeechNotifier _textToSpeechNotifier;
 
 		[SetUp]
 		public void SetUp()
@@ -29,9 +30,9 @@ namespace Tests
 			const string buildName = "Global";
 			const string requestorId = "Requestor ID";
 			string buildFailed = string.Format(TextToSpeechNotifier.BuildFailed, requestorId, buildName);
-			_speechLibraryMock.Setup(x=>x.Speak(buildFailed)).Verifiable();
+			_speechLibraryMock.Setup(x => x.Speak(buildFailed)).Verifiable();
 
-			_textToSpeechNotifier.AnnounceBrokenBuild(buildName, requestorId);
+			_textToSpeechNotifier.AnnounceBrokenBuild(buildName, requestorId, DateTime.Now);
 		}
 
 		[Test]
@@ -40,9 +41,9 @@ namespace Tests
 			const string buildName = "Global";
 			const string requestorId = "Requestor ID";
 			string buildCorrected = string.Format(TextToSpeechNotifier.BuildCorrected, requestorId, buildName);
-			_speechLibraryMock.Setup(x=>x.Speak(buildCorrected)).Verifiable();
+			_speechLibraryMock.Setup(x => x.Speak(buildCorrected)).Verifiable();
 
-			_textToSpeechNotifier.AnnounceResolvedBuild(buildName, requestorId);
+			_textToSpeechNotifier.AnnounceResolvedBuild(buildName, requestorId, DateTime.Now);
 		}
 	}
 }
