@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Configuration;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -255,47 +254,6 @@ namespace BuildMonitor
 			systemTrayNotifyIcon.Icon = new Icon(iconStream);
 		}
 
-		private void SetX10IntegrationStatus(ImageIndex imageIndex)
-		{
-			const string GREEN_LAMP_CODE = "a1";
-			const string RED_LAMP_CODE = "a2";
-			Process proc = new Process();
-			proc.StartInfo.UseShellExecute = false;
-			proc.StartInfo.CreateNoWindow = true;
-			proc.StartInfo.FileName = string.Format(@"""{0}""",
-			                                        Assembly.GetExecutingAssembly().Location.Replace("CCTfsWrapper.exe",
-			                                                                                         "ExternalPrograms\\cm17a.exe"));
-			string greenLampStatus;
-			string redLampStatus;
-			if (DateTime.Now.Hour >= 17 || DateTime.Today.DayOfWeek == DayOfWeek.Saturday ||
-			    DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
-			{
-				greenLampStatus = "off";
-				redLampStatus = "off";
-			}
-			else
-			{
-				switch (imageIndex)
-				{
-					case ImageIndex.Green:
-						greenLampStatus = "on";
-						redLampStatus = "off";
-						break;
-					case ImageIndex.Yellow:
-						greenLampStatus = "on";
-						redLampStatus = "on";
-						break;
-					default:
-						greenLampStatus = "off";
-						redLampStatus = "on";
-						break;
-				}
-			}
-			proc.StartInfo.Arguments = string.Format("1 {0}{1} {2}{3}", GREEN_LAMP_CODE, greenLampStatus, RED_LAMP_CODE,
-			                                         redLampStatus);
-			proc.Start();
-		}
-
 		private void SetupUsers()
 		{
 			_userNames = new Dictionary<string, string>();
@@ -334,8 +292,7 @@ namespace BuildMonitor
 							buildInformation[1] = lastBuildDetails.Status.ToString();
 						}
 						ImageIndex imageIndex = lastBuildDetails == null ? ImageIndex.Red : GetImageIndex(lastBuildDetails.Status);
-						ListViewItem listViewItem = new ListViewItem(buildInformation, (int) imageIndex);
-						listViewItem.Tag = serverBuild;
+						ListViewItem listViewItem = new ListViewItem(buildInformation, (int) imageIndex) {Tag = serverBuild};
 						AddItem(listViewItem);
 						if (imageIndex == ImageIndex.Red)
 						{
@@ -348,7 +305,7 @@ namespace BuildMonitor
 						}
 					}
 					SetSystemTrayIcon(overallImageIndex);
-					SetX10IntegrationStatus(overallImageIndex);
+//					SetX10IntegrationStatus(overallImageIndex);
 					if (overallImageIndex != _lastBuildStatus)
 					{
 						SetRadiatorBuildStatusColor(overallImageIndex);
